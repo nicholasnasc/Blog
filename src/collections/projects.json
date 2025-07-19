@@ -1,0 +1,38 @@
+[
+	{
+		"name": "Discloud Hosting",
+		"description": "Way You Host Your Applications.",
+		"image": "/assets/images/projects/discloud.png",
+		"url": "https://discloud.com/"
+	},
+	{
+		"name": "EzQuiz",
+		"description": "Complete Interactive Quiz System Developed For E-commerce",
+		"image": "/assets/images/projects/dns.surf.png",
+		"url": "https://ezquiz.nickzin.dev"
+	},
+	{
+		"name": "MCPACK",
+		"description": "Cartoons And Beautiful Pixels.",
+		"image": "/assets/images/projects/mcpack.png",
+		"url": "https://mcpack.nickzin.dev/"
+	},
+	{
+		"name": "Figma App Mobile",
+		"description": "A Minimalistic Figma Clone To Show How To Add Real-World.",
+		"image": "/assets/images/projects/sink.cool.png",
+		"url": "https://github.com/JavaScript-Mastery-Pro/figma-ts/assets/151519281/e03dc22d-0f45-464b-9dc3-f01f07906bee"
+	},
+	{
+		"name": "Bank of Brazil",
+		"description": "SaaS platform that connects to multiple bank accounts.",
+		"image": "/assets/images/projects/broadcast-channel.png",
+		"url": "https://github.com/adrianhajdin/banking/assets/151519281/3c03519c-7ebd-4539-b598-49e63d1770b4"
+	},
+	{
+		"name": "Uber App",
+		"description": "Uber Clone is a perfect mobile app",
+		"image": "https://i.ibb.co/Bf04Hpd/Readme-thumbnail-from-JS-Mastery.png",
+		"url": "https://uber.nickzin.dev"
+	}
+]
