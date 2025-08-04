@@ -1,0 +1,45 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "posts": "Posts",
+    "projects": "Projects"
+  },
+  "home": {
+    "title": "Hello, I'm Nicholas",
+    "subtitle": "Full Stack Developer",
+    "description": "Passionate about technology and creating innovative solutions",
+    "latest_posts": "Latest Posts",
+    "view_all_posts": "View all posts",
+    "featured_projects": "Featured Projects",
+    "view_all_projects": "View all projects"
+  },
+  "about": {
+    "title": "About Me",
+    "description": "Developer passionate about creating amazing digital experiences"
+  },
+  "posts": {
+    "title": "Blog",
+    "description": "Articles about development, technology and more",
+    "read_more": "Read more",
+    "published_on": "Published on"
+  },
+  "projects": {
+    "title": "Projects",
+    "description": "A collection of my works and experiments",
+    "view_project": "View project",
+    "source_code": "Source code"
+  },
+  "footer": {
+    "copyright": "All rights reserved",
+    "made_with": "Made with",
+    "and": "and"
+  },
+  "install": {
+    "button": "Install App",
+    "title": "Install Portfolio",
+    "message": "Add this portfolio to your home screen for quick access!",
+    "install": "Install",
+    "cancel": "Cancel"
+  }
+}

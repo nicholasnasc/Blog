@@ -20,6 +20,8 @@
 		"typescript": "^5.4.5"
 	},
 	"dependencies": {
+		"astro-i18n": "^2.2.4",
+		"i18next": "^25.3.2",
 		"yarn": "^1.22.22"
 	}
 }

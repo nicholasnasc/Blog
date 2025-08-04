@@ -1,0 +1,168 @@
+---
+import { languages, defaultLanguage } from '../i18n/config.js';
+---
+
+<div id="language-selector" class="language-selector relative inline-block">
+  <button 
+    id="lang-button"
+    class="flex items-center space-x-2 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+  >
+    <span id="current-lang" class="text-sm font-medium">Português</span>
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+    </svg>
+  </button>
+  
+  <div 
+    id="lang-menu"
+    class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 z-50 hidden"
+  >
+    <div class="py-1">
+      <button class="lang-option block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" data-lang="pt">
+        <span class="flag mr-2">🇧🇷</span>
+        Português
+      </button>
+      <button class="lang-option block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" data-lang="en">
+        <span class="flag mr-2">🇺🇸</span>
+        English
+      </button>
+      <button class="lang-option block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" data-lang="es">
+        <span class="flag mr-2">🇪🇸</span>
+        Español
+      </button>
+      <button class="lang-option block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" data-lang="fr">
+        <span class="flag mr-2">🇫🇷</span>
+        Français
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Traduções
+    const translations = {
+      pt: {
+        name: 'Português',
+        title: 'Olá, sou Nicholas',
+        description: 'Apaixonado por tecnologia e criação de soluções inovadoras',
+        currentWork: 'Atualmente trabalhando com:',
+        followMe: 'Follow me on 𝕏'
+      },
+      en: {
+        name: 'English',
+        title: 'Hello, I\'m Nicholas',
+        description: 'Passionate about technology and creating innovative solutions',
+        currentWork: 'Currently working with:',
+        followMe: 'Follow me on 𝕏'
+      },
+      es: {
+        name: 'Español',
+        title: 'Hola, soy Nicholas',
+        description: 'Apasionado por la tecnología y la creación de soluciones innovadoras',
+        currentWork: 'Actualmente trabajando con:',
+        followMe: 'Sígueme en 𝕏'
+      },
+      fr: {
+        name: 'Français',
+        title: 'Bonjour, je suis Nicholas',
+        description: 'Passionné par la technologie et la création de solutions innovantes',
+        currentWork: 'Actuellement en train de travailler avec:',
+        followMe: 'Suivez-moi sur 𝕏'
+      }
+    };
+
+    function getCurrentLanguage() {
+      return localStorage.getItem('preferred-language') || 'pt';
+    }
+
+    function updateLanguageDisplay() {
+      const currentLang = getCurrentLanguage();
+      const currentLangSpan = document.getElementById('current-lang');
+      
+      if (currentLangSpan && translations[currentLang]) {
+        currentLangSpan.textContent = translations[currentLang].name;
+      }
+      
+      // Atualiza botões ativos
+      document.querySelectorAll('.lang-option').forEach(function(option) {
+        const lang = option.getAttribute('data-lang');
+        if (lang === currentLang) {
+          option.classList.add('bg-blue-50', 'dark:bg-blue-900', 'text-blue-700', 'dark:text-blue-300');
+        } else {
+          option.classList.remove('bg-blue-50', 'dark:bg-blue-900', 'text-blue-700', 'dark:text-blue-300');
+        }
+      });
+    }
+
+    function translatePage(lang) {
+      const trans = translations[lang];
+      if (!trans) return;
+
+      // Atualiza elementos da página
+      const title = document.querySelector('h1');
+      const description = document.querySelector('.mb-6');
+      const currentWork = document.querySelector('.font-semibold');
+      const button = document.querySelector('a[href*="x.com"]');
+
+      if (title) title.textContent = trans.title;
+      if (description) {
+        const textNode = description.childNodes[0];
+        if (textNode && textNode.nodeType === Node.TEXT_NODE) {
+          textNode.textContent = trans.description + ' ';
+        }
+      }
+      if (currentWork) currentWork.textContent = trans.currentWork;
+      if (button) button.textContent = trans.followMe;
+    }
+
+    // Configuração inicial
+    updateLanguageDisplay();
+    translatePage(getCurrentLanguage());
+
+    // Event listeners
+    const button = document.getElementById('lang-button');
+    const menu = document.getElementById('lang-menu');
+
+    if (button) {
+      button.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (menu) {
+          menu.classList.toggle('hidden');
+        }
+      });
+    }
+
+    document.addEventListener('click', function() {
+      if (menu) {
+        menu.classList.add('hidden');
+      }
+    });
+
+    document.querySelectorAll('.lang-option').forEach(function(option) {
+      option.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const lang = option.getAttribute('data-lang');
+        
+        if (lang) {
+          localStorage.setItem('preferred-language', lang);
+          updateLanguageDisplay();
+          translatePage(lang);
+          if (menu) {
+            menu.classList.add('hidden');
+          }
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .language-selector {
+    user-select: none;
+  }
+  
+  .flag {
+    font-size: 1.2em;
+  }
+</style>

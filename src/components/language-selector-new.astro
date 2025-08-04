@@ -1,0 +1,85 @@
+---
+import { languages, defaultLanguage } from '../i18n/config.js';
+import { getCurrentLanguage } from '../i18n/utils.js';
+
+const currentLang = getCurrentLanguage();
+
+function getFlag(code) {
+  const flags = {
+    'pt': '🇧🇷',
+    'en': '🇺🇸', 
+    'es': '🇪🇸',
+    'fr': '🇫🇷'
+  };
+  return flags[code] || '🌐';
+}
+---
+
+<div class="language-selector relative inline-block">
+  <button 
+    id="lang-button"
+    class="flex items-center space-x-2 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+  >
+    <span class="text-sm font-medium">{languages[currentLang]}</span>
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+    </svg>
+  </button>
+  
+  <div 
+    id="lang-menu"
+    class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 z-50 hidden"
+  >
+    <div class="py-1">
+      {Object.entries(languages).map(([code, name]) => (
+        <button
+          class={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${
+            code === currentLang ? 'bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-300' : 'text-gray-700 dark:text-gray-300'
+          }`}
+          data-lang={code}
+        >
+          <span class="flag mr-2">{getFlag(code)}</span>
+          {name}
+        </button>
+      ))}
+    </div>
+  </div>
+</div>
+
+<script>
+  // Toggle do menu
+  const button = document.getElementById('lang-button');
+  const menu = document.getElementById('lang-menu');
+  
+  button?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    menu?.classList.toggle('hidden');
+  });
+  
+  // Fecha o menu ao clicar fora
+  document.addEventListener('click', () => {
+    menu?.classList.add('hidden');
+  });
+  
+  // Handler para mudança de idioma
+  const langButtons = document.querySelectorAll('[data-lang]');
+  langButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const lang = e.target.closest('[data-lang]')?.dataset.lang;
+      if (lang && typeof window !== 'undefined') {
+        localStorage.setItem('preferred-language', lang);
+        window.location.reload();
+      }
+    });
+  });
+</script>
+
+<style>
+  .language-selector {
+    user-select: none;
+  }
+  
+  .flag {
+    font-size: 1.2em;
+  }
+</style>

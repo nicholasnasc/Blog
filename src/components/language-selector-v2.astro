@@ -1,0 +1,153 @@
+---
+import { languages, defaultLanguage } from '../i18n/config.js';
+
+// Para server-side, sempre usa o idioma padrão
+let currentLang = defaultLanguage;
+---
+
+<div id="language-selector" class="language-selector relative inline-block">
+  <button 
+    id="lang-button"
+    class="flex items-center space-x-2 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+  >
+    <span id="current-lang" class="text-sm font-medium">Português</span>
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+    </svg>
+  </button>
+  
+  <div 
+    id="lang-menu"
+    class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 z-50 hidden"
+  >
+    <div class="py-1">
+      <button class="lang-option block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" data-lang="pt">
+        <span class="flag mr-2">🇧🇷</span>
+        Português
+      </button>
+      <button class="lang-option block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" data-lang="en">
+        <span class="flag mr-2">🇺🇸</span>
+        English
+      </button>
+      <button class="lang-option block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" data-lang="es">
+        <span class="flag mr-2">🇪🇸</span>
+        Español
+      </button>
+      <button class="lang-option block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" data-lang="fr">
+        <span class="flag mr-2">🇫🇷</span>
+        Français
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Traduções estáticas
+  const translations = {
+    pt: {
+      name: 'Português',
+      home: { title: 'Olá, sou Nicholas', description: 'Apaixonado por tecnologia e criação de soluções inovadoras' }
+    },
+    en: {
+      name: 'English',
+      home: { title: 'Hello, I\'m Nicholas', description: 'Passionate about technology and creating innovative solutions' }
+    },
+    es: {
+      name: 'Español',
+      home: { title: 'Hola, soy Nicholas', description: 'Apasionado por la tecnología y la creación de soluciones innovadoras' }
+    },
+    fr: {
+      name: 'Français',
+      home: { title: 'Bonjour, je suis Nicholas', description: 'Passionné par la technologie et la création de solutions innovantes' }
+    }
+  };
+
+  // Função para obter idioma atual
+  function getCurrentLanguage() {
+    return localStorage.getItem('preferred-language') || 'pt';
+  }
+
+  // Função para atualizar interface
+  function updateLanguageDisplay() {
+    const currentLang = getCurrentLanguage();
+    const currentLangSpan = document.getElementById('current-lang');
+    const langOptions = document.querySelectorAll('.lang-option');
+    
+    if (currentLangSpan) {
+      currentLangSpan.textContent = translations[currentLang]?.name || 'Português';
+    }
+    
+    // Atualiza opções ativas
+    langOptions.forEach(option => {
+      const lang = option.dataset.lang;
+      if (lang === currentLang) {
+        option.classList.add('bg-blue-50', 'dark:bg-blue-900', 'text-blue-700', 'dark:text-blue-300');
+      } else {
+        option.classList.remove('bg-blue-50', 'dark:bg-blue-900', 'text-blue-700', 'dark:text-blue-300');
+      }
+    });
+  }
+
+  // Função para traduzir página
+  function translatePage(lang) {
+    const trans = translations[lang];
+    if (!trans) return;
+
+    // Atualiza elementos específicos
+    const title = document.querySelector('h1');
+    const description = document.querySelector('.mb-6');
+    
+    if (title) title.textContent = trans.home.title;
+    if (description) {
+      const descText = description.childNodes[0];
+      if (descText) descText.textContent = trans.home.description + ' ';
+    }
+  }
+
+  // Event listeners
+  document.addEventListener('DOMContentLoaded', () => {
+    const button = document.getElementById('lang-button');
+    const menu = document.getElementById('lang-menu');
+    const langOptions = document.querySelectorAll('.lang-option');
+    
+    // Atualiza display inicial
+    updateLanguageDisplay();
+    translatePage(getCurrentLanguage());
+    
+    // Toggle menu
+    button?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      menu?.classList.toggle('hidden');
+    });
+    
+    // Fecha menu ao clicar fora
+    document.addEventListener('click', () => {
+      menu?.classList.add('hidden');
+    });
+    
+    // Mudança de idioma
+    langOptions.forEach(option => {
+      option.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const lang = option.dataset.lang;
+        
+        if (lang) {
+          localStorage.setItem('preferred-language', lang);
+          updateLanguageDisplay();
+          translatePage(lang);
+          menu?.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .language-selector {
+    user-select: none;
+  }
+  
+  .flag {
+    font-size: 1.2em;
+  }
+</style>

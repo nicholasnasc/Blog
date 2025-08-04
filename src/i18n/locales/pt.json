@@ -1,0 +1,45 @@
+{
+  "nav": {
+    "home": "Início",
+    "about": "Sobre",
+    "posts": "Posts",
+    "projects": "Projetos"
+  },
+  "home": {
+    "title": "Olá, sou Nicholas",
+    "subtitle": "Desenvolvedor Full Stack",
+    "description": "Apaixonado por tecnologia e criação de soluções inovadoras",
+    "latest_posts": "Últimos Posts",
+    "view_all_posts": "Ver todos os posts",
+    "featured_projects": "Projetos em Destaque",
+    "view_all_projects": "Ver todos os projetos"
+  },
+  "about": {
+    "title": "Sobre Mim",
+    "description": "Desenvolvedor apaixonado por criar experiências digitais incríveis"
+  },
+  "posts": {
+    "title": "Blog",
+    "description": "Artigos sobre desenvolvimento, tecnologia e mais",
+    "read_more": "Ler mais",
+    "published_on": "Publicado em"
+  },
+  "projects": {
+    "title": "Projetos",
+    "description": "Uma coleção dos meus trabalhos e experimentos",
+    "view_project": "Ver projeto",
+    "source_code": "Código fonte"
+  },
+  "footer": {
+    "copyright": "Todos os direitos reservados",
+    "made_with": "Feito com",
+    "and": "e"
+  },
+  "install": {
+    "button": "Instalar App",
+    "title": "Instalar Portfolio",
+    "message": "Adicione este portfolio à sua tela inicial para acesso rápido!",
+    "install": "Instalar",
+    "cancel": "Cancelar"
+  }
+}
