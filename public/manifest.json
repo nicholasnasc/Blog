@@ -1,0 +1,28 @@
+{
+  "name": "Nicholas Portfolio",
+  "short_name": "Portfolio",
+  "description": "Portfólio pessoal de Nicholas",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/assets/images/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/images/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["portfolio", "blog", "business"],
+  "lang": "pt-BR",
+  "dir": "ltr"
+}
